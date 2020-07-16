@@ -1,6 +1,7 @@
 package me.github.fwfurtado.pickpay.domain;
 
 import lombok.Getter;
+import me.github.fwfurtado.pickpay.exception.NotAllowedOperationException;
 
 import java.math.BigDecimal;
 
@@ -13,12 +14,12 @@ public class Customer {
     private String email;
     private CreditCard creditCard;
     private Wallet wallet;
-
-    public Customer(String name, String socialNumber, String email) {
+    
+    public Customer(String name, String socialNumber, String email, Wallet wallet) {
         this.name = name;
         this.socialNumber = socialNumber;
         this.email = email;
-        this.wallet = new Wallet();
+        this.wallet = wallet;
     }
 
     public void linkCreditCard(CreditCard creditCard) {
@@ -27,6 +28,10 @@ public class Customer {
 
     public void deposit(BigDecimal amount) {
         wallet.deposit(Transaction.incoming(amount));
+    }
+
+    public void withDraw(BigDecimal amount) throws NotAllowedOperationException {
+    	wallet.withDraw(Transaction.outcoming(amount));
     }
 
     public BigDecimal getBalance() {
@@ -40,4 +45,9 @@ public class Customer {
     public CreditCard getCardCredit() {
         return creditCard;
     }
+    
+    public String getWalletCode() {
+    	return this.wallet.getCode();
+    }
+    
 }
