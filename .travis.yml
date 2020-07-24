@@ -1,0 +1,21 @@
+language: java
+
+cache:
+  directories:
+    - $HOME/.m2
+
+stages:
+  - compile
+  - test
+
+install: skip
+
+jobs:
+  include:
+    - stage: compile
+      script:
+        - ./mvnw compile
+
+    - stage: test
+      script:
+        - ./mvnw test
