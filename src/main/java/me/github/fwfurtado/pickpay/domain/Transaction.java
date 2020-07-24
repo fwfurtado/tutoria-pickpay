@@ -1,10 +1,9 @@
 package me.github.fwfurtado.pickpay.domain;
 
-import lombok.Getter;
-import org.springframework.cglib.core.Local;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import lombok.Getter;
 
 @Getter
 public class Transaction {
@@ -20,5 +19,9 @@ public class Transaction {
 
     public static Transaction incoming(BigDecimal amount) {
         return new Transaction(amount, LocalDateTime.now(), TransactionType.INCOMING);
+    }
+    
+    public static Transaction outcoming(BigDecimal amount) {
+    	return new Transaction(amount, LocalDateTime.now(), TransactionType.OUTCOMING);
     }
 }
