@@ -1,6 +1,8 @@
 package me.github.fwfurtado.pickpay.domain;
 
 import lombok.Getter;
+import me.github.fwfurtado.pickpay.exception.NotAllowedOperationException;
+import me.github.fwfurtado.pickpay.utils.MathUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,5 +21,13 @@ public class Wallet {
 
     public Iterable<Transaction> getTransactions() {
         return transactions;
+    }
+
+    public void withdraw(Transaction outcoming) throws NotAllowedOperationException {
+        transactions.add(outcoming);
+        if(MathUtils.isLessThan(this.balance, outcoming.getAmount()))
+            throw new NotAllowedOperationException("You do not have enough balance for this operation");
+
+        balance = balance.subtract(outcoming.getAmount());
     }
 }

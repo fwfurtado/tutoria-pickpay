@@ -21,4 +21,8 @@ public class Transaction {
     public static Transaction incoming(BigDecimal amount) {
         return new Transaction(amount, LocalDateTime.now(), TransactionType.INCOMING);
     }
+
+    public static Transaction outcoming(BigDecimal amount) {
+        return new Transaction(amount, LocalDateTime.now(), TransactionType.OUTCOMING);
+    }
 }

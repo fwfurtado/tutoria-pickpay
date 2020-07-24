@@ -1,6 +1,7 @@
 package me.github.fwfurtado.pickpay.domain;
 
 import lombok.Getter;
+import me.github.fwfurtado.pickpay.exception.NotAllowedOperationException;
 
 import java.math.BigDecimal;
 
@@ -28,6 +29,8 @@ public class Customer {
     public void deposit(BigDecimal amount) {
         wallet.deposit(Transaction.incoming(amount));
     }
+
+    public void withdraw(BigDecimal amount) throws NotAllowedOperationException { wallet.withdraw(Transaction.outcoming(amount)); }
 
     public BigDecimal getBalance() {
         return wallet.getBalance();
